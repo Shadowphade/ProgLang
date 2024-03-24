@@ -11,18 +11,14 @@ Compare the following features in Go and Python
 The following project is to be implemented in both languages.
 
 Web Scraper<br>
-- Each scraper will read in a file called `sites.list` a simple text file with a website on each line.
-  - Likely 100 wikipedia links
-- Some sites will intentionally be dead or fake so errors must be handled.
-  - 10 fake/dead links of the 100 total links
+- Each scraper will read https://scrapeme.live/shop/page/4/
+    - Data will consist of the pokemon and their price.
 - The scraped data is then parsed into sentences and stored as a csv file.
   - Store all scraped data in one file or the first sentence of each site into one file??
 
 Bin Sorting<br>
-- Concurrently pack sentences in 100-word bins.
-  - Run 3 cases: 1 goroutine/thread, 4 goroutines/threads, 8 goroutines/threads
-- The bins will then be outputted as another csv.
-  - Each line in the CSV will have a 100-word 'sentence' (aka the info of one bin)
+- A form of concurrant merge sort will be used to sort the pokemon by price.
+  -  A csv will be recorded sorted by price.
 
 ## Language Notes
 
@@ -36,3 +32,4 @@ Includes:
 ### Python
 Includes:
 - requests : handles http requests
+-
