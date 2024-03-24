@@ -16,9 +16,13 @@ Web Scraper<br>
 - The scraped data is then parsed into sentences and stored as a csv file.
   - Store all scraped data in one file or the first sentence of each site into one file??
 
+
 Bin Sorting<br>
 - A form of concurrant merge sort will be used to sort the pokemon by price.
   -  A csv will be recorded sorted by price.
+
+## CSV Format
+`Bulbasaur,63.00`
 
 ## Language Notes
 
