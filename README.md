@@ -1,23 +1,28 @@
 # ProgLang
 ## Goals
-Compare the following features in go and python
-- Concurrancy
+Compare the following features in Go and Python
+- Concurrency
 - Type System
-- Data handleing
+- Data handling
 - File IO
-- Alogrithm Preformance
+- Algorithm Performance
 
-## Project
-The following project is to be implmented in both languages.
+## Project- The Great Data Shuffle
+The following project is to be implemented in both languages.
 
-The great data shuffle.
-Web scraper
-    - Each scraper will read in a file called `sites.list` a simple text file with a web site on each line.
-    - Some sites will intentionally be dead or fake so errors must be handled.
-    - The scraped data is then parsed into sentences and stored as a csv file.
-Bin sorting
-    - Sorting will try to efficently pack sentences in 100 word bins (preferably concurantly).
-    - The bins will then be outputted as another csv.
+Web Scraper<br>
+- Each scraper will read in a file called `sites.list` a simple text file with a website on each line.
+  - Likely 100 wikipedia links
+- Some sites will intentionally be dead or fake so errors must be handled.
+  - 10 fake/dead links of the 100 total links
+- The scraped data is then parsed into sentences and stored as a csv file.
+  - Store all scraped data in one file or the first sentence of each site into one file??
+
+Bin Sorting<br>
+- Concurrently pack sentences in 100-word bins.
+  - Run 3 cases: 1 goroutine/thread, 4 goroutines/threads, 8 goroutines/threads
+- The bins will then be outputted as another csv.
+  - Each line in the CSV will have a 100-word 'sentence' (aka the info of one bin)
 
 ## Language Notes
 
