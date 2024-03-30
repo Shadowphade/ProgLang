@@ -39,12 +39,9 @@ func main() {
 		pokemonProducts = append(pokemonProducts, PokemonProduct{Name: name, Price: price})
 	})
 
-	// Iterate over each page to scrape data
 	for i := 1; i <= lastPage; i++ {
-		// define the URL for the current page
 		url := fmt.Sprintf(baseURL, i)
 
-		// visit the page
 		c.Visit(url)
 	}
 
