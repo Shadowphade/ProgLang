@@ -7,6 +7,7 @@ import (
 	"os"
 	"strings"
     // api for web scrapping
+	//"sync"
 	"github.com/gocolly/colly"
 )
 
@@ -26,32 +27,47 @@ func main() {
 	baseURL := "https://scrapeme.live/shop/page/%d/"
 	lastPage := 48
 
-	// define the callback to extract data from each product
-	c.OnHTML("li.product", func(e *colly.HTMLElement) {
-		// extract Pokemon name and price
-		name := e.ChildText("h2")
-		price := e.ChildText(".price")
+	argLen := len(os.Args[1:])
 
-		// eemove pound sign from price
-		price = strings.TrimLeft(price, "£")
+	if argLen == 0 {
+		fmt.Println("Starting Scraper...")
 
-		// append the data to the slice
-		pokemonProducts = append(pokemonProducts, PokemonProduct{Name: name, Price: price})
-	})
+		// define the callback to extract data from each product
+		c.OnHTML("li.product", func(e *colly.HTMLElement) {
+			// extract Pokemon name and price
+			name := e.ChildText("h2")
+			price := e.ChildText(".price")
 
-	for i := 1; i <= lastPage; i++ {
-		url := fmt.Sprintf(baseURL, i)
+			// eemove pound sign from price
+			price = strings.TrimLeft(price, "£")
 
-		c.Visit(url)
+			// append the data to the slice
+			pokemonProducts = append(pokemonProducts, PokemonProduct{Name: name, Price: price})
+		})
+
+		for i := 1; i <= lastPage; i++ {
+			url := fmt.Sprintf(baseURL, i)
+
+			c.Visit(url)
+		}
+
+		// write the scraped data to a CSV file
+		err := writeCSV("pokemon_data.csv", pokemonProducts)
+		if err != nil {
+			log.Fatalf("Error writing CSV file: %v", err)
+		}
+
+		fmt.Println("Scraping and CSV generation completed successfully.")
 	}
 
-	// write the scraped data to a CSV file
-	err := writeCSV("pokemon_data.csv", pokemonProducts)
-	if err != nil {
-		log.Fatalf("Error writing CSV file: %v", err)
-	}
 
-	fmt.Println("Scraping and CSV generation completed successfully.")
+
+	fmt.Println("Starting Sorting... ")
+
+	products := readIn()
+	// var wg sync.WaitGroup
+	sort(products, 0, len(products) - 1)
+	fmt.Println(products)
 }
 
 func writeCSV(filename string, data []PokemonProduct) error {
