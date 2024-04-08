@@ -78,17 +78,19 @@ func insertionSort(inputArr []PokemonProduct, sliceSize int) {
 	var j int
 
 	for i := 1; i < sliceSize; i++ {
-		key,err := strconv.ParseFloat(inputArr[i].Price, 64)
+
+		key := inputArr[i]
+		keyVal,err := strconv.ParseFloat(inputArr[i].Price, 64)
 		if err != nil {log.Fatal(err)}
 		j = i-1;
 
 		check,err := strconv.ParseFloat(inputArr[j].Price, 64)
 		if err != nil {log.Fatal(err)}
-		for j >= 0 && check > key {
+		for j >= 0 && check > keyVal {
 			inputArr[j + 1] = inputArr[j]
 			j = j - 1
 		}
-		inputArr[j+1] = inputArr[i]
+		inputArr[j+1] = key
 	}
 	fmt.Println(inputArr)
 }

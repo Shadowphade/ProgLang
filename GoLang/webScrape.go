@@ -67,6 +67,7 @@ func main() {
 	products := readIn()
 	// var wg sync.WaitGroup
 	sort(products, 0, len(products) - 1)
+	writeCSV("sorted.csv", products)
 	fmt.Println(products)
 }
 
