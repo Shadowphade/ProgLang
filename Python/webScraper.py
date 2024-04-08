@@ -5,6 +5,15 @@ import time
 import threading
 import random
 
+class Pokemon:
+    name = ""
+    price = 0.0
+
+    def __init__(self, name, price):
+        self.name = name
+        self.price = price
+
+
 def scrape_page(page_number):
     url = f"https://scrapeme.live/shop/page/{page_number}/"
     response = requests.get(url)
@@ -19,10 +28,16 @@ def scrape_page(page_number):
     return pokemon_data
 
 def sort():
+    # collect data from .csv file (names and prices as key value pairs in a dictionary)
     pokemonDict = createDictionaryFromCsv()
 
-    print(pokemonDict)
-
+    # create array of pokemon data containers using the dictionary
+    allPokemon = [0 for i in range (len(pokemonDict))]
+    counter = 0
+    for i,j in pokemonDict.items():
+        tempPokemon = Pokemon(i, j)
+        allPokemon[counter] = tempPokemon
+        counter += 1
 
 def createDictionaryFromCsv():
     pokemonDict = {}
