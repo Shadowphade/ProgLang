@@ -1,9 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
-import csv
 import time
-import threading
-import random
+import csv
+import mergeSort as ms
 
 def scrape_page(page_number):
     url = f"https://scrapeme.live/shop/page/{page_number}/"
@@ -17,25 +16,6 @@ def scrape_page(page_number):
         price = product.find("span", class_="woocommerce-Price-amount amount").text.replace('£', '')
         pokemon_data.append({"pokemon": name, "price": price})
     return pokemon_data
-
-def sort():
-    pokemonDict = createDictionaryFromCsv()
-
-    print(pokemonDict)
-
-
-def createDictionaryFromCsv():
-    pokemonDict = {}
-
-    file = open("pokemon_prices.csv", "r")
-    data = csv.reader(file)
-
-    for row in data:
-        name = row[0]
-        price = float(row[1])
-        pokemonDict[name] = price
-
-    return pokemonDict
 
 def main():
     start_time = time.time()
@@ -57,5 +37,8 @@ def main():
     end_time = time.time()
     print(f"Scraping complete in {end_time - start_time:.2f} seconds.")
 
+    # sort the pokemon data
+    ms.sort()
+
 if __name__ == "__main__":
-    sort()
+    main()
