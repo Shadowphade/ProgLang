@@ -31,14 +31,17 @@ def main():
                 break
             for data in pokemon_data:
                 writer.writerow(data)
-            print(f"Data from page {page_number} written to CSV.")
+            #print(f"Data from page {page_number} written to CSV.")
             page_number += 1
 
     end_time = time.time()
     print(f"Scraping complete in {end_time - start_time:.2f} seconds.")
 
     # sort the pokemon data
+    sort_time = time.time()
     ms.sort()
+    end_sort_time = time.time()
+    print(f"Sorting complete in {(end_sort_time - sort_time) * 1000:.2f} milli seconds")
 
 if __name__ == "__main__":
     main()
