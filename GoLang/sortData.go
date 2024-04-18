@@ -2,8 +2,6 @@ package main
 
 import (
 	"encoding/csv"
-	"fmt"
-	//"fmt"
 	"log"
 	"os"
 	"strconv"
@@ -46,7 +44,7 @@ func sort(inputArr []PokemonProduct, l int, h int) {
 	length := h - l + 1
 
 	if length <= 5 {
-		fmt.Println("Length Reached sorting")
+		// fmt.Println("Length Reached sorting")
 		insertionSort(inputArr[l:h+1], length)
 		return
 	}
@@ -92,7 +90,7 @@ func insertionSort(inputArr []PokemonProduct, sliceSize int) {
 		}
 		inputArr[j+1] = key
 	}
-	fmt.Println(inputArr)
+	// fmt.Println(inputArr)
 }
 
 
