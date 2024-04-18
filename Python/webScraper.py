@@ -38,10 +38,8 @@ def main():
     print(f"Scraping complete in {end_time - start_time:.2f} seconds.")
 
     # sort the pokemon data
-    sort_time = time.time()
+
     ms.sort()
-    end_sort_time = time.time()
-    print(f"Sorting complete in {(end_sort_time - sort_time) * 1000:.2f} milli seconds")
 
 if __name__ == "__main__":
     main()

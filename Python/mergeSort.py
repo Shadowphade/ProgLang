@@ -1,6 +1,7 @@
 import csv
 import threading
 import random
+import time
 
 class Pokemon:
     name = ""
@@ -84,11 +85,15 @@ def sort():
         counter += 1
 
     # sort the pokemon from lowest price to highest price using a concurrent merge sort
+    sort_time = time.time()
     mergeSort(allPokemon, 0, len(allPokemon) - 1)
+    end_sort_time = time.time()
+    print(f"Sorting complete in {(end_sort_time - sort_time) * 1000:.2f} milli seconds")
+
 
     # print the sorted pokemon data
-    # for pokemon in allPokemon:
-    #     print("Name: \t" + pokemon.name + "    \tPrice: \t" + str(pokemon.price))
+    for pokemon in allPokemon:
+        print("Name: \t" + pokemon.name + "    \tPrice: \t" + str(pokemon.price))
 
 def createDictionaryFromCsv():
     pokemonDict = {}

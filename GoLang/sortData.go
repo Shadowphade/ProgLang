@@ -6,13 +6,8 @@ import (
 	"os"
 	"strconv"
 	"sync"
+	//"fmt"
 )
-
-// func main() {
-// 	fmt.Println("Reading csv in")
-// 	var prodArr = readIn()
-//
-// }
 
 func readIn() []PokemonProduct {
 
@@ -44,31 +39,28 @@ func sort(inputArr []PokemonProduct, l int, h int) {
 	length := h - l + 1
 
 	if length <= 5 {
-		// fmt.Println("Length Reached sorting")
+		//fmt.Println("Length Reached sorting")
 		insertionSort(inputArr[l:h+1], length)
 		return
 	}
 
 	mid := (l + h) / 2
-
 	var wg sync.WaitGroup
 
 	wg.Add(2)
 
-	//fmt.Println("Starting thread")
-
 	go func() {
 		defer wg.Done()
-		sort(inputArr, l, mid)
+		sort(inputArr[:], l, mid)
 	}()
 	go func() {
 		defer wg.Done()
-		sort(inputArr, mid + 1, h)
+		sort(inputArr[:], mid + 1, h)
 	}()
 
 	wg.Wait()
 
-	merge(inputArr, l, mid, h)
+	merge(inputArr[:], l, mid, h)
 
 }
 
@@ -76,21 +68,20 @@ func insertionSort(inputArr []PokemonProduct, sliceSize int) {
 	var j int
 
 	for i := 1; i < sliceSize; i++ {
-
-		key := inputArr[i]
-		keyVal,err := strconv.ParseFloat(inputArr[i].Price, 64)
-		if err != nil {log.Fatal(err)}
-		j = i-1;
-
-		check,err := strconv.ParseFloat(inputArr[j].Price, 64)
-		if err != nil {log.Fatal(err)}
-		for j >= 0 && check > keyVal {
-			inputArr[j + 1] = inputArr[j]
+		j = i
+		for j > 0 {
+			keyVal,_ := strconv.ParseFloat(inputArr[j-1].Price, 64)
+			check,_ := strconv.ParseFloat(inputArr[j].Price, 64)
+			if(check > keyVal){
+				 inputArr[j], inputArr[j - 1] = inputArr[j - 1], inputArr[j]
+			}
 			j = j - 1
 		}
-		inputArr[j+1] = key
 	}
-	// fmt.Println(inputArr)
+
+	for i, j := 0, sliceSize - 1; i < j; i, j = i+1, j-1 {
+		inputArr[i], inputArr[j] = inputArr[j], inputArr[i]
+	}
 }
 
 
@@ -101,16 +92,25 @@ func merge(arr []PokemonProduct, l1 int, h1 int, h2 int) {
 	k := h1+1
 	m := 0
 
-	for (i <= h1 && k <= h2) {
+	for i <= h1 && k <= h2 {
 		price1,err := strconv.ParseFloat(arr[i].Price, 64)
+		//fmt.Println("Price1:", price1)
 		if err != nil {log.Fatal(err)}
 		price2,err := strconv.ParseFloat(arr[k].Price, 64)
+		//fmt.Println("Price2:", price2)
 		if err != nil {log.Fatal(err)}
+
 		if price1 < price2 {
 			sorted[m] = arr[i]
 			i++
-		} else {
-			sorted[m] = arr[k]
+		} else if (price2 < price1) {
+			sorted[m] = arr[k];
+			k++
+		} else if (price1 == price2){
+			sorted[m] = arr[i]
+			m++
+			sorted[m] = arr[k];
+			i++
 			k++
 		}
 		m++
@@ -127,8 +127,10 @@ func merge(arr []PokemonProduct, l1 int, h1 int, h2 int) {
 		k++
 	}
 	//arrCount := l1
-	for i := 0; i < count; i,l1 = i+1, l1 + 1{
+	for i := 0; i < count; i++{
 		arr[l1] = sorted[i]
+		//fmt.Println(sorted[i])
+		l1++
 	}
 
 }
