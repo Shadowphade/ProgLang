@@ -68,7 +68,7 @@ func main() {
 	products := readIn()
 
 	sortTime := time.Now()
-	sort(products, 0, len(products) - 1)
+	sort(products[:], 0, len(products) - 1)
 	writeCSV("sorted.csv", products)
 	elap := time.Now().Sub(sortTime)
 	fmt.Printf("Sorting and storing took %s\n", elap)
