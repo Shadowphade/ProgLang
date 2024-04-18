@@ -87,8 +87,8 @@ def sort():
     mergeSort(allPokemon, 0, len(allPokemon) - 1)
 
     # print the sorted pokemon data
-    for pokemon in allPokemon:
-        print("Name: \t" + pokemon.name + "    \tPrice: \t" + str(pokemon.price))
+    # for pokemon in allPokemon:
+    #     print("Name: \t" + pokemon.name + "    \tPrice: \t" + str(pokemon.price))
 
 def createDictionaryFromCsv():
     pokemonDict = {}

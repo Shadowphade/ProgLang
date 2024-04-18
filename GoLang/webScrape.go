@@ -6,8 +6,7 @@ import (
 	"log"
 	"os"
 	"strings"
-    // api for web scrapping
-	//"sync"
+	"time"
 	"github.com/gocolly/colly"
 )
 
@@ -29,9 +28,10 @@ func main() {
 
 	argLen := len(os.Args[1:])
 
+
 	if argLen == 0 {
 		fmt.Println("Starting Scraper...")
-
+		start := time.Now()
 		// define the callback to extract data from each product
 		c.OnHTML("li.product", func(e *colly.HTMLElement) {
 			// extract Pokemon name and price
@@ -56,8 +56,9 @@ func main() {
 		if err != nil {
 			log.Fatalf("Error writing CSV file: %v", err)
 		}
-
+		elap := time.Now().Sub(start)
 		fmt.Println("Scraping and CSV generation completed successfully.")
+		fmt.Printf("Scraping took %s\n", elap)
 	}
 
 
@@ -65,10 +66,13 @@ func main() {
 	fmt.Println("Starting Sorting... ")
 
 	products := readIn()
-	// var wg sync.WaitGroup
+
+	sortTime := time.Now()
 	sort(products, 0, len(products) - 1)
 	writeCSV("sorted.csv", products)
-	fmt.Println(products)
+	elap := time.Now().Sub(sortTime)
+	fmt.Printf("Sorting and storing took %s\n", elap)
+	//fmt.Println(products)
 }
 
 func writeCSV(filename string, data []PokemonProduct) error {
