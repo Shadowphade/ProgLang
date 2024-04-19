@@ -20,25 +20,29 @@ def scrape_page(page_number):
 def main():
     start_time = time.time()
     filename = "pokemon_prices.csv"
-    with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
-        fieldnames = ['pokemon', 'price']
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    try:
+        with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
+            fieldnames = ['pokemon', 'price']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
-        page_number = 1
-        while True:
-            pokemon_data = scrape_page(page_number)
-            if pokemon_data is None:
-                break
-            for data in pokemon_data:
-                writer.writerow(data)
-            #print(f"Data from page {page_number} written to CSV.")
-            page_number += 1
+            page_number = 1
+            while True:
+                pokemon_data = scrape_page(page_number)
+                if pokemon_data is None:
+                    break
+                for data in pokemon_data:
+                    writer.writerow(data)
+                # print(f"Data from page {page_number} written to CSV.")
+                page_number += 1
+    except FileNotFoundError:
+        print("Error: The file was not found or the path is incorrect")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
     end_time = time.time()
     print(f"Scraping complete in {end_time - start_time:.2f} seconds.")
 
     # sort the pokemon data
-
     ms.sort()
 
 if __name__ == "__main__":
