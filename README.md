@@ -13,27 +13,10 @@ The following project is to be implemented in both languages.
 Web Scraper<br>
 - Each scraper will read https://scrapeme.live/shop/page/4/
     - Data will consist of the pokemon and their price.
-- The scraped data is then parsed into sentences and stored as a csv file.
-  - Store all scraped data in one file or the first sentence of each site into one file??
+- The scraped data is then parsed and stored as a csv file.
 
-
-Bin Sorting<br>
-- A form of concurrant merge sort will be used to sort the pokemon by price.
-  -  A csv will be recorded sorted by price.
+Concurrent Merge Sort<br>
+- A form of concurrent merge sort will be used to sort the pokemon by price from lowest to highest.
 
 ## CSV Format
 `Bulbasaur,63.00`
-
-## Language Notes
-
-### Golang
-Includes:
-- net/http : standard http networking library
-- bufio : handles IO with files
-- os : allows for interaction with os syscalls
-- bytes : encoding and decoding of data
-
-### Python
-Includes:
-- requests : handles http requests
--
